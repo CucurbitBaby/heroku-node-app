@@ -9,7 +9,7 @@ const users = require('./routes/api/users');
 const profiles = require('./routes/api/profiles');  
 // DB config
 const db = require('./config/keys').mongoURI;
-const allowOrigin = res => res.header('Access-Control-Allow-Origin', '*');
+
 // 使用body-parser中间件
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -30,17 +30,15 @@ app.use(passport.initialize());
 
 
 //设置跨域访问
-// app.all('*', (req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   next();
-// });
-
+app.all('*', (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*,Content-Type");
+  next();
+});
 
 require('./config/passport')(passport);
 
 app.get("/",(req,res) => {
-  allowOrigin(res)
-  res.send("Hi Cyan222!");
+  res.send("Hi Cyan!");
 })
 
 

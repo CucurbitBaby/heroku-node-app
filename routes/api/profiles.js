@@ -5,13 +5,10 @@ const passport = require('passport');
 
 const Profile = require('../../models/Profile');
 
-const allowOrigin = res => res.header('Access-Control-Allow-Origin', '*');
-
 // @route  GET api/profiles/test
 // @desc   返回的请求的json数据
 // @access public
 router.get('/test', (req, res) => {
-  allowOrigin(res)
   res.json({ msg: 'profile works' });
 });
 
@@ -22,7 +19,6 @@ router.post(
   '/add',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    allowOrigin(res)
     const profileFields = {};
 
     if (req.body.type) profileFields.type = req.body.type;
@@ -46,7 +42,6 @@ router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    allowOrigin(res)
     Profile.find()
       .then(profile => {
         if (!profile) {
@@ -67,7 +62,6 @@ router.get(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    allowOrigin(res)
     Profile.findOne({ _id: req.params.id })
       .then(profile => {
         if (!profile) {
@@ -87,7 +81,6 @@ router.post(
   '/edit/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    allowOrigin(res)
     const profileFields = {};
 
     if (req.body.type) profileFields.type = req.body.type;
@@ -112,7 +105,6 @@ router.delete(
   '/delete/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    allowOrigin(res)
     Profile.findOneAndRemove({ _id: req.params.id })
       .then(profile => {
         profile.save().then(profile => res.json(profile));

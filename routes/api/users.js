@@ -8,13 +8,11 @@ const keys = require('../../config/keys');
 const passport = require('passport');
 
 const User = require('../../models/User');
-const allowOrigin = res => res.header('Access-Control-Allow-Origin', '*');
 
 // @route  GET api/users/test
 // @desc   返回的请求的json数据
 // @access public
 router.get('/test', (req, res) => {
-  allowOrigin(res)
   res.json({ msg: 'login works' });
 });
 
@@ -22,7 +20,6 @@ router.get('/test', (req, res) => {
 // @desc   返回的请求的json数据
 // @access public
 router.post('/register', (req, res) => {
-  allowOrigin(res)
   // 查询数据库中是否拥有邮箱
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
@@ -63,7 +60,6 @@ router.post('/register', (req, res) => {
 // @access public
 
 router.post('/login', (req, res) => {
-  allowOrigin(res)
   const email = req.body.email;
   const password = req.body.password;
   // 查询数据库
@@ -103,7 +99,6 @@ router.get(
   '/current',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    allowOrigin(res)
     res.json({
       id: req.user.id,
       name: req.user.name,
