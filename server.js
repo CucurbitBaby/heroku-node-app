@@ -39,7 +39,7 @@ app.all('*', (req, res, next) => {
 require('./config/passport')(passport);
 
 app.get("/",(req,res) => {
-  res.send("Hi Cyan!");
+  res.send("Hi Cyan222!");
 })
 
 
