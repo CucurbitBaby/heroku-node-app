@@ -31,7 +31,19 @@ app.use(passport.initialize());
 
 //设置跨域访问
 app.all('*', (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*,Content-Type");
+
+  // TODO 支持跨域访问
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Access-Token");
+  res.setHeader("Access-Control-Expose-Headers", "*");
+
+  if (req.getMethod().equals("OPTIONS")) {
+      HttpUtil.setResponse(res, HttpStatus.OK.value(), null);
+      return;
+  }
+
   next();
 });
 
