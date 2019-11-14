@@ -36,7 +36,7 @@ app.all('*', (req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Methods", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Access-Token");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Access-Token,Authorization");
   res.setHeader("Access-Control-Expose-Headers", "*");
 
   if (req.getMethod().equals("OPTIONS")) {
